@@ -1,8 +1,13 @@
-FROM python:slim
+FROM python:3.11-slim
 
 LABEL maintainer="Tomokazu Tantaka <tomokazu.tantaka@gmail.com>"
 
+RUN apt update
+RUN apt upgrade -y
+RUN apt install gcc libpq-dev vim curl -y
+
 COPY requirements.txt /tmp/requirements.txt
+RUN pip install --upgrade pip
 RUN pip install --no-cache-dir -r /tmp/requirements.txt
 
 COPY ./start.sh /start.sh
